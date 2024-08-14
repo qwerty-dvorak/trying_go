@@ -6,9 +6,11 @@ import(
 
 func main() {
 	db, err := database.NewSession()
+	print("\n")
 	if err != nil {
 		print(err)
 	}
 	print(db,"\n")
     println("Hello, Go!")
+	database.RunMigration(db)
 }
