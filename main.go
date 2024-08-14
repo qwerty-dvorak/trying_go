@@ -9,6 +9,6 @@ func main() {
 	if err != nil {
 		print(err)
 	}
-	print(db)
+	print(db,"\n")
     println("Hello, Go!")
 }
