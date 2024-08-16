@@ -25,8 +25,6 @@ func NewSession() (*sql.DB, error) {
     if databaseURL == "" {
         log.Fatalf("DATABASE_URL not set in .env file")
     }
-	print(databaseURL)
-
     // Open the database connection
     return sql.Open("postgres", databaseURL)
 }

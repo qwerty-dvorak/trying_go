@@ -22,7 +22,7 @@ func RunMigration(db *sql.DB) {
     if tableName == "" {
         _, err := db.Exec(`
             CREATE TABLE users (
-                id SERIAL PRIMARY KEY,
+                id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
                 email TEXT UNIQUE NOT NULL,
                 password TEXT NOT NULL
             )

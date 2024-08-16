@@ -1,7 +1,16 @@
 package schema
 
+import (
+	"github.com/google/uuid"
+)
+
 type User struct {
-	ID int `json:"id"`
+	ID uuid.UUID `json:"id"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+}
+
+type CreateUser struct {
 	Email string `json:"email"`
 	Password string `json:"password"`
 }
