@@ -9,9 +9,9 @@ import (
 
 func GetUsers(app *fiber.App, db *sql.DB) {
     app.Get("/users", func(c *fiber.Ctx) error {
-        users,err := controller.ReadUsers(db)
-		if err != nil {
-			return c.Status(500).SendString(err.Error())
+        users := controller.ReadUsers(db)
+		if users.Status != "success" {
+			return c.Status(500).SendString(users.Message)
 		}
         return c.JSON(users)
     })
@@ -20,9 +20,9 @@ func GetUsers(app *fiber.App, db *sql.DB) {
 func GetUser(app *fiber.App, db *sql.DB) {
 	app.Get("/users/:email", func(c *fiber.Ctx) error {
 		email:=c.Params("email")
-		user,err := controller.ReadUser(db, email)
-		if err != nil {
-			return c.Status(500).SendString(err.Error())
+		user:= controller.ReadUser(db, email)
+		if user.Status != "success" {
+			return c.Status(500).SendString(user.Message)
 		}
 		return c.JSON(user)
 	})
@@ -33,11 +33,11 @@ func AddUser(app *fiber.App, db *sql.DB) {
 		var user schema.CreateUser
 		user.Email = c.Get("email")
 		user.Password = c.Get("password")
-		status,err := controller.CreateUser(db, user)
-		if err != nil {
-			return c.Status(500).SendString(err.Error())
+		newuser:= controller.CreateUser(db, user)
+		if newuser.Status != "success" {
+			return c.Status(500).SendString(newuser.Message)
 		}
-		return c.JSON(status)
+		return c.JSON(newuser)
 	})
 }
 
